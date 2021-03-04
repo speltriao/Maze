@@ -1,5 +1,3 @@
 # Maze
 Colored ASCII Maze Game in C++
-<div align="center">
-  <a href="https://www.youtube.com/watch?v=2bAcb7ZJlB8"><img src="https://img.youtube.com/vi/2bAcb7ZJlB8/0.jpg" alt="IMAGE ALT TEXT"></a>
-</div>
+[![Everything Is AWESOME](https://yt-embed.herokuapp.com/embed?v=2bAcb7ZJlB8)](https://www.youtube.com/watch?v=2bAcb7ZJlB8 "Everything Is AWESOME")
