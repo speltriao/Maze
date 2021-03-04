@@ -45,7 +45,6 @@ class Move : public Maze{
         const char wall[4]={'.','|',':','-'};
         static int count,currentX, currentY;
         static const int  defaultY = 1, defaultX = 17;
-        //static const int  defaultY = 9, defaultX = 0;
     public:
         Move(){//Constructor
             if (count == 0) {
