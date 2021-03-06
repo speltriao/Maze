@@ -37,7 +37,6 @@ class Maze{
         }
 };
 
-
 class Move : public Maze{
     private:
         char in;
@@ -125,7 +124,7 @@ class Move : public Maze{
             for (int i = 0; i < 4; i++) if(wall[i]==c)return true;
             return false;
         }
-        
+ 
         bool endGame(){return gameover;}
         int getCount(){return count;}
 
@@ -137,7 +136,6 @@ class Move : public Maze{
             system("stty -cbreak");// go to COOKED mode
             return in;
         }
-
 };
 int Move::count=-1;
 int Move::currentX=Move::defaultX;
