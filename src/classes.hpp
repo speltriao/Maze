@@ -132,7 +132,6 @@ class Move : public Maze{
         char getch(){//ignores Enter to input
             system("stty -echo"); // supress echo
             system("stty cbreak"); // go to RAW mode
-            //char in = getchar();
             in=getchar();
             system ("stty echo"); // Make echo work
             system("stty -cbreak");// go to COOKED mode
