@@ -1,6 +1,6 @@
 
 # Maze
-<h>Colored ASCII Maze Game in C++</h>
+<h>CLI Colored ASCII Maze Game in C++</h>
 
 <div align="center">
   <p><b>Click on the picture bellow to see the YouTube video:</p></b>
