@@ -72,7 +72,6 @@ class Move : public Maze{
                 input();
                 system("clear");
             } while(!isValidMove());
-            
         }
 
         bool isValidMove(){
@@ -110,7 +109,7 @@ class Move : public Maze{
         }
 
         bool moveD(){
-            if(isWall(m[currentY][currentX+2])) return false;   //2 because the player is a double parenteses ()    
+            if(isWall(m[currentY][currentX+2])) return false;   //+2 because the player is a double parenteses ()    
             currentX+=1;                  
             return true;
         }
