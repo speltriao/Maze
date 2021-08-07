@@ -57,7 +57,6 @@ class Move : public Maze{
 
         void input(){
             do{
-                //std::cout<<"\n";
                 in=getch(); 
             }while((in!='w')&&(in!='a')&&(in!='s')&&(in!='d'));
         }
@@ -93,7 +92,7 @@ class Move : public Maze{
             }
         }
 
-        bool moveW(){//ok
+        bool moveW(){
             if((isWall(m[currentY-1][currentX]))||(isWall(m[currentY-1][currentX+1]))) return false;   
             currentY--;                 
             return true;
@@ -111,7 +110,7 @@ class Move : public Maze{
         }
 
         bool moveD(){
-            if(isWall(m[currentY][currentX+2])) return false;   //2 pq o personagem é um parenteses duplo ()    
+            if(isWall(m[currentY][currentX+2])) return false;   //2 because the player is a double parenteses ()    
             currentX+=1;                  
             return true;
         }
