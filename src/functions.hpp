@@ -9,8 +9,8 @@ void welMsg(){
 int run(){
     welMsg();
     while (1){
-        Move mv; //each movement is an instance of the Move class
-        mv.movement();
+        Movement mv; //each movement is an instance of the Move class
+        mv.move();
         if (mv.endGame()) return mv.getCount();
     }
 }

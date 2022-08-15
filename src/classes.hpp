@@ -35,7 +35,7 @@ class Maze{
         void printMaze(){ 
             for (int i = 0; i < lenY; i++){
                 for (int j = 0; j < lenX; j++){
-                    if (m[i][j]==indicator1 || m[i][j]==indicator2) std::cout<<BOLD<<RED<< m[i][j]<<RESET;
+                    if (m[i][j]==leftIndicator || m[i][j]==rightIndicator) std::cout<<BOLD<<RED<< m[i][j]<<RESET;
                     else std::cout<<CYAN<<m[i][j]<<RESET;
                 }
                 std::cout<<"\n";
@@ -71,7 +71,7 @@ class Movement : public Maze{
             do{
                 if ((currentY==9) && (currentX==0)){
                     printMaze();
-                    gameover=true;
+                    gameOver=true;
                     return;
                 } 
                 printMaze();
@@ -154,7 +154,7 @@ class Movement : public Maze{
         }
 };
 int Movement::count=-1;
-int Movement::currentX=Move::defaultX;
-int Movement::currentY=Move::defaultY;
+int Movement::currentX=Movement::defaultX;
+int Movement::currentY=Movement::defaultY;
 
 
