@@ -6,12 +6,11 @@ void welMsg(){
     std::cout<<UNDER<<"\n\nplay with WASD keys\n\n"<<RESET;                              
 }
 
-int run(){
+int runGame(){
     welMsg();
-    while (1){
-        Movement mv; //each movement is an instance of the Move class
-        mv.move();
-        if (mv.endGame()) return mv.getCount();
-    }
+    Movement mv;
+    while(!mv.isGameOver()) {
+        mv.doMove();
+    } 
+    return mv.getCountMoves();
 }
-

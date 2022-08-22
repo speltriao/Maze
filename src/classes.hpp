@@ -16,7 +16,7 @@
 
 class Maze{
     protected:    
-        char m[lenY][lenX]={//m[y][x]   
+        char maze[lenY][lenX]={ //m[y][x]   
             {' ','.','-','-','.','-','-','.','-','-','.','-','-','.','-','-','.','-','-','.'},
             {' ','|',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ','|',' ',' ','|'},
             {' ',':',' ',' ',':','-','-',':',' ',' ',':',' ',' ',':',' ',' ',':',' ',' ',':'},
@@ -35,126 +35,135 @@ class Maze{
         void printMaze(){ 
             for (int i = 0; i < lenY; i++){
                 for (int j = 0; j < lenX; j++){
-                    if (m[i][j]==leftIndicator || m[i][j]==rightIndicator) std::cout<<BOLD<<RED<< m[i][j]<<RESET;
-                    else std::cout<<CYAN<<m[i][j]<<RESET;
+                    if (maze[i][j] == leftIndicator || maze[i][j] == rightIndicator){
+                        std::cout << BOLD << RED << maze[i][j] <<RESET;
+                    }
+                    else {
+                        std::cout << CYAN << maze[i][j] <<RESET;
+                    }
                 }
-                std::cout<<"\n";
+                std::cout << "\n";
             }
-            std::cout<<"\n";
+            std::cout << "\n";
         }
 };
 
 class Movement : public Maze{
     private:
-        char in;
-        bool msg = false, gameOver=false;
-        const char wall[4]={'.','|',':','-'};
-        static int count,currentX, currentY;
-        static const int  defaultY = 1, defaultX = 17; //Start position (X,Y)
+        const char wall[4] = {'.' , '|' , ':' , '-'}; //Characters that compose the Maze Wall
+        int currentX, currentY, countMoves;
+        const int defaultY = 1, defaultX = 17, gameOverY = 9, gameOverX = 0; //Game special positions
+
     public:
-        Movement(){//Constructor
-            if (count == 0) {
-                currentX=defaultX;
-                currentY=defaultY;
-            }
-            updateLocation();
-            count++; //count moves
+        Movement(){ //Defaults
+            countMoves = 0;
+            currentX = defaultX;
+            currentY = defaultY;
         }
 
-        void input(){
-            do{
-                in=getch(); 
-            }while ((in!='w') && (in!='a') && (in!='s') && (in!='d'));
+        int getCountMoves(){return countMoves;}
+
+        bool isGameOver(){
+            if ((currentY == gameOverY) && (currentX == gameOverX)){
+                return true;
+            }
+            return false; 
         }
 
-        void move(){
-            do{
-                if ((currentY==9) && (currentX==0)){
-                    printMaze();
-                    gameOver=true;
-                    return;
-                } 
-                printMaze();
-                input();
-                system("clear");
-            }while(!isValidMove());
-        }
- 
-        bool isValidMove(){
-            switch (in) {
-                case 'w': 
-                    if(moveW()) return true;
-                    return false;
-                case 'a':
-                    if(moveA()) return true;
-                    return false;
-                case 's':
-                    if(moveS()) return true;
-                    return false;
-                case 'd':
-                    if(moveD()) return true;
-                    return false;
-            }
-        }
-
-        bool moveW(){
-            if ((isWall(m[currentY-1][currentX])) || (isWall(m[currentY-1][currentX+1]))){
-                return false;
-            }
-            currentY--;                 
-            return true;
-        }
-        
-        bool moveA(){
-            if (isWall(m[currentY][currentX-1])) {
-                return false;
-            }
-            currentX--;                  
-            return true;
-        }
-        bool moveS(){
-            if ((isWall(m[currentY+1][currentX])) || (isWall(m[currentY+1][currentX+1]))){
-                return false;
-            }
-            currentY++;                 
-            return true;
-        }
-
-        bool moveD(){
-            if(isWall(m[currentY][currentX+2])){ //+2: player indicator is composed by 2 characters   
-                return false;
-            }  
-            currentX+=1;                  
-            return true;
-        }
-
-        void updateLocation(){
-            m[currentY][currentX]=leftIndicator;
-            m[currentY][currentX+1]=rightIndicator;
-        }
-        bool isWall(char c){
+        bool isWall(char ch){
             for (int i = 0; i < 4; i++){
-                if (wall[i]==c) {
+                if (wall[i] == ch) {
                     return true;
                 }
             }
             return false;
         }
- 
-        bool endGame(){return gameOver;}
-        int getCount(){return count;}
 
-        char getch(){//ignores Enter to input
-            system("stty -echo"); // supress echo
-            system("stty cbreak"); // go to RAW mode
-            in=getchar();
-            system ("stty echo"); // Make echo work
-            system("stty -cbreak");// go to COOKED mode
-            return in;
+        void resetLastLocation(){ 
+            maze[currentY][currentX] = ' ';
+            maze[currentY][currentX+1] = ' ';
+        }
+
+        void updatePlayerLocation(){
+            maze[currentY][currentX] = leftIndicator;
+            maze[currentY][currentX+1] = rightIndicator;
+        }
+
+        bool moveUp(){ 
+            if ((isWall(maze[currentY-1][currentX])) || (isWall(maze[currentY-1][currentX+1]))){
+                return false;
+            }
+            resetLastLocation();
+            currentY--;                 
+            return true;
+        }
+        
+        bool moveLeft(){
+            if (isWall(maze[currentY][currentX-1])){
+                return false;
+            }
+            resetLastLocation();
+            currentX--;                  
+            return true;
+        }
+
+        bool moveDown(){
+            if ((isWall(maze[currentY+1][currentX])) || (isWall(maze[currentY+1][currentX+1]))){
+                return false;
+            }
+            resetLastLocation();
+            currentY++;
+            return true;
+        }
+
+        bool moveRight(){
+            if(isWall(maze[currentY][currentX+2])){   
+                return false;
+            }
+            resetLastLocation();
+            currentX++;                  
+            return true;
+        }
+
+        char inputWithoutEnter(){ //Hack to skip [Enter] key press on input
+            system("stty -echo"); 
+            system("stty cbreak"); 
+            char input = getchar();
+            system ("stty echo"); 
+            system("stty -cbreak");
+            return input;
+        }
+
+        bool isValidMove(char input){
+            switch (input) {
+                case 'w': 
+                    return (moveUp()); 
+                case 'a':
+                    return (moveLeft()); 
+                case 's':
+                    return (moveDown()); 
+                case 'd':
+                    return (moveRight()); 
+                default:
+                    return false;
+            }
+        }
+
+        void userInput(){
+            char input;
+            do{
+                input = inputWithoutEnter();
+            } while (!isValidMove(input));
+        }
+
+
+        void doMove(){
+            do{
+                updatePlayerLocation();
+                printMaze();
+                userInput();
+                countMoves++;
+                system("clear"); //Clear the terminal
+            }while(!isGameOver());
         }
 };
-int Movement::count=-1;
-int Movement::currentX=Movement::defaultX;
-int Movement::currentY=Movement::defaultY;
-
-
