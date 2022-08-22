@@ -156,7 +156,6 @@ class Movement : public Maze{
             } while (!isValidMove(input));
         }
 
-
         void doMove(){
             do{
                 updatePlayerLocation();
