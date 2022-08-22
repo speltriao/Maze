@@ -1,6 +1,6 @@
 #include <iostream>
 #include "classes.hpp"
-#include "functions.hpp"
+#include "run.hpp"
 
 int main (){
     int moves = runGame();
