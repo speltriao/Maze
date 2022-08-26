@@ -1,4 +1,5 @@
-void welMsg(){                     
+void welMsg(){
+    system("clear");                     
     std::cout << "  /\\/\\    __ _  ____  ___"<<"\n";
     std::cout << " /    \\  / _` ||_  / / _ \\"<<"\n";
     std::cout << "/ /\\/\\ \\| (_| | / / |  __/"<<"\n";
